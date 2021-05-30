@@ -1,0 +1,37 @@
+package com.coffeeforest.domains.user.domain;
+
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "users")
+@Entity
+public class UserEntity {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  private String email;
+  private String password;
+  private Position position;
+  private String name;
+  private String phone;
+  private String address;
+
+  @Builder
+  public UserEntity(
+      String email, String password, Position position, String name, String phone, String address) {
+    this.email = email;
+    this.password = password;
+    this.position = position;
+    this.name = name;
+    this.phone = phone;
+    this.address = address;
+  }
+}
