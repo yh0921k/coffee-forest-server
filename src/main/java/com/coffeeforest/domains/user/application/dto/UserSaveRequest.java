@@ -1,11 +1,7 @@
 package com.coffeeforest.domains.user.application.dto;
 
 import com.coffeeforest.domains.user.domain.Position;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Builder

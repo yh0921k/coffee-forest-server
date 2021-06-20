@@ -2,18 +2,13 @@ package com.coffeeforest.domains.work.domain;
 
 import com.coffeeforest.domains.company.domain.CompanyEntity;
 import com.coffeeforest.domains.user.domain.UserEntity;
-import java.time.LocalDate;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -37,13 +32,20 @@ public class WorkEntity {
   private LocalDate endDate;
   private int holidayCount;
 
+  private WorkStatus workStatus;
+
   @Builder
   public WorkEntity(
-      CompanyEntity companyEntity, UserEntity userEntity, LocalDate startDate, LocalDate endDate) {
+      CompanyEntity companyEntity,
+      UserEntity userEntity,
+      LocalDate startDate,
+      LocalDate endDate,
+      WorkStatus workStatus) {
     this.companyEntity = companyEntity;
     this.userEntity = userEntity;
     this.startDate = startDate;
     this.endDate = endDate;
     this.holidayCount = 0;
+    this.workStatus = workStatus;
   }
 }

@@ -13,23 +13,23 @@ import javax.persistence.*;
 @Table(name = "company")
 @Entity
 public class CompanyEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private String name;
-    private String address;
-    private String businessNumber;
+  private String name;
+  private String address;
+  private String businessNumber;
 
-    @OneToOne
-    @JoinColumn(name = "owner_id")
-    private UserEntity owner;
+  @OneToOne
+  @JoinColumn(name = "owner_id")
+  private UserEntity owner;
 
-    @Builder
-    public CompanyEntity(String name, String address, String businessNumber, UserEntity owner) {
-        this.name = name;
-        this.address = address;
-        this.businessNumber = businessNumber;
-        this.owner = owner;
-    }
+  @Builder
+  public CompanyEntity(String name, String address, String businessNumber, UserEntity owner) {
+    this.name = name;
+    this.address = address;
+    this.businessNumber = businessNumber;
+    this.owner = owner;
+  }
 }

@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CompanySaveController {
 
-    private final CompanySaveService companySaveService;
+  private final CompanySaveService companySaveService;
 
-    @GetMapping("/company/duplication")
-    public ResponseEntity<String> isDuplicated(@RequestParam String businessNumber) {
-        return companySaveService.isDuplicated(businessNumber);
-    }
+  @GetMapping("/company/duplication")
+  public ResponseEntity<String> isDuplicated(@RequestParam String businessNumber) {
+    return ResponseEntity.ok(companySaveService.isDuplicated(businessNumber));
+  }
 }

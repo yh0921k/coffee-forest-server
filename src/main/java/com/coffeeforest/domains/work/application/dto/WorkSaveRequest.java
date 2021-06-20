@@ -2,11 +2,7 @@ package com.coffeeforest.domains.work.application.dto;
 
 import com.coffeeforest.domains.company.domain.CompanyEntity;
 import com.coffeeforest.domains.user.domain.UserEntity;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Builder
