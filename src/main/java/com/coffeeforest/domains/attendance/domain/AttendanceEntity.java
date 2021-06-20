@@ -24,6 +24,8 @@ public class AttendanceEntity {
   private LocalTime startTime;
   private LocalTime endTime;
 
+  private AttendanceStatus attendanceStatus;
+
   @ManyToOne
   @JoinColumn(name = "company_id")
   private CompanyEntity companyEntity;
@@ -37,11 +39,13 @@ public class AttendanceEntity {
       LocalDate date,
       LocalTime startTime,
       LocalTime endTime,
+      AttendanceStatus attendanceStatus,
       CompanyEntity companyEntity,
       UserEntity userEntity) {
     this.date = date;
     this.startTime = startTime;
     this.endTime = endTime;
+    this.attendanceStatus = attendanceStatus;
     this.companyEntity = companyEntity;
     this.userEntity = userEntity;
   }
