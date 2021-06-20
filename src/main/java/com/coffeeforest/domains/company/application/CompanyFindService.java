@@ -22,4 +22,13 @@ public class CompanyFindService {
 
     return companyEntity;
   }
+
+  public CompanyEntity findById(Long companyIndex) {
+    CompanyEntity companyEntity =
+        companyRepository
+            .findById(companyIndex)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid Company Index"));
+
+    return companyEntity;
+  }
 }
