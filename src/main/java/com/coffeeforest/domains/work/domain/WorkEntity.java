@@ -37,13 +37,16 @@ public class WorkEntity {
   private LocalDate endDate;
   private int holidayCount;
 
+  private WorkStatus workStatus;
+
   @Builder
   public WorkEntity(
-      CompanyEntity companyEntity, UserEntity userEntity, LocalDate startDate, LocalDate endDate) {
+      CompanyEntity companyEntity, UserEntity userEntity, LocalDate startDate, LocalDate endDate, WorkStatus workStatus) {
     this.companyEntity = companyEntity;
     this.userEntity = userEntity;
     this.startDate = startDate;
     this.endDate = endDate;
     this.holidayCount = 0;
+    this.workStatus = workStatus;
   }
 }
