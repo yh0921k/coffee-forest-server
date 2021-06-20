@@ -9,7 +9,7 @@ import java.time.LocalTime;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class AttendanceSaveResponse {
+public class AttendanceTimeResponse {
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
