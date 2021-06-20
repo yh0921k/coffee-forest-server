@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,6 +21,9 @@ public class CompanyEntity extends BaseTimeEntity {
 
   private String name;
   private String address;
+
+  private LocalTime startTime;
+  private LocalTime endTime;
 
   @Column(unique = true)
   private String businessNumber;
@@ -34,5 +38,11 @@ public class CompanyEntity extends BaseTimeEntity {
     this.address = address;
     this.businessNumber = businessNumber;
     this.owner = owner;
+  }
+
+  public CompanyEntity baseAttendanceTime(LocalTime startTime, LocalTime endTime) {
+    this.startTime = startTime;
+    this.endTime = endTime;
+    return this;
   }
 }
