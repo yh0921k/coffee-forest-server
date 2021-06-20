@@ -1,5 +1,6 @@
 package com.coffeeforest.domains.company.domain;
 
+import com.coffeeforest.domains.BaseTimeEntity;
 import com.coffeeforest.domains.user.domain.UserEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "company")
 @Entity
-public class CompanyEntity {
+public class CompanyEntity extends BaseTimeEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
