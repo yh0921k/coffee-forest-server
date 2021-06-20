@@ -1,6 +1,6 @@
 package com.coffeeforest.domains.company.application.dto;
 
-import lombok.*;
+import lombok.Getter;
 
 @Getter
 public class CompanySaveRequest {

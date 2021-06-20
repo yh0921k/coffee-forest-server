@@ -4,10 +4,10 @@ import com.coffeeforest.domains.company.application.dto.CompanySaveRequest;
 import com.coffeeforest.domains.company.domain.CompanyEntity;
 import com.coffeeforest.domains.company.domain.CompanyRepository;
 import com.coffeeforest.domains.user.domain.UserEntity;
-import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor

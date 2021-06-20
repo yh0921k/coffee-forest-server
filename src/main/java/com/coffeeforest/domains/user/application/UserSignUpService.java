@@ -12,7 +12,6 @@ import com.coffeeforest.domains.user.domain.UserRepository;
 import com.coffeeforest.domains.work.application.WorkSaveService;
 import com.coffeeforest.domains.work.application.dto.WorkSaveRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
