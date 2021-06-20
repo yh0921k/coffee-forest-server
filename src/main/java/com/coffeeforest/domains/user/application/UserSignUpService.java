@@ -1,5 +1,6 @@
 package com.coffeeforest.domains.user.application;
 
+import com.coffeeforest.domains.company.application.CompanyFindService;
 import com.coffeeforest.domains.company.application.CompanySaveService;
 import com.coffeeforest.domains.company.domain.CompanyEntity;
 import com.coffeeforest.domains.user.application.dto.UserSaveRequest;
@@ -10,10 +11,11 @@ import com.coffeeforest.domains.user.domain.UserEntity;
 import com.coffeeforest.domains.user.domain.UserRepository;
 import com.coffeeforest.domains.work.application.WorkSaveService;
 import com.coffeeforest.domains.work.application.dto.WorkSaveRequest;
-import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,19 +23,24 @@ public class UserSignUpService {
 
   private final UserRepository userRepository;
   private final CompanySaveService companySaveService;
+  private final CompanyFindService companyFindService;
   private final WorkSaveService workSaveService;
 
   @Transactional
   public ResponseEntity<UserSignUpResponse> signUp(UserSignUpRequest userSignUpRequest) {
     UserEntity userEntity = save(userSignUpRequest.getUserSaveRequest());
 
+    CompanyEntity companyEntity = null;
     if (userEntity.getPosition() == Position.ADMIN) {
-      CompanyEntity companyEntity =
+      companyEntity =
           companySaveService.save(userSignUpRequest.getCompanySaveRequest(), userEntity);
-
-      workSaveService.save(
-          WorkSaveRequest.builder().companyEntity(companyEntity).userEntity(userEntity).build());
+    } else if (userEntity.getPosition() == Position.EMPLOYEE) {
+      companyEntity =
+          companyFindService.findByName(userSignUpRequest.getCompanySaveRequest().getName());
     }
+
+    workSaveService.save(
+        WorkSaveRequest.builder().companyEntity(companyEntity).userEntity(userEntity).build());
 
     return ResponseEntity.ok(UserSignUpResponse.builder().userIndex(userEntity.getId()).build());
   }
