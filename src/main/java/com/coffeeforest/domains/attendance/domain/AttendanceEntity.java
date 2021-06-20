@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -48,5 +49,18 @@ public class AttendanceEntity {
     this.attendanceStatus = attendanceStatus;
     this.companyEntity = companyEntity;
     this.userEntity = userEntity;
+  }
+
+  public AttendanceEntity endTime(LocalTime now, LocalTime companyEndTime) {
+    if (now.isBefore(companyEndTime)) {
+      throw new IllegalArgumentException(
+          "Current Time is before Work-Off Time("
+              + companyEndTime.format(DateTimeFormatter.ofPattern("HH:mm"))
+              + ")");
+    }
+
+    this.endTime = now;
+    this.attendanceStatus = AttendanceStatus.LEAVE;
+    return this;
   }
 }
