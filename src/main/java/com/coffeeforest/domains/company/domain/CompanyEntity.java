@@ -19,6 +19,8 @@ public class CompanyEntity {
 
   private String name;
   private String address;
+
+  @Column(unique = true)
   private String businessNumber;
 
   @OneToOne
