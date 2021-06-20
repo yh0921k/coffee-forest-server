@@ -17,4 +17,13 @@ public class UserFindService {
             .orElseThrow(() -> new IllegalArgumentException("Invalid Email or Password"));
     return userEntity;
   }
+
+  public UserEntity findById(Long userIndex) {
+    UserEntity userEntity =
+        userRepository
+            .findById(userIndex)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid User Index"));
+
+    return userEntity;
+  }
 }
