@@ -27,7 +27,7 @@ public class UserSignUpService {
   private final WorkSaveService workSaveService;
 
   @Transactional
-  public ResponseEntity<UserSignUpResponse> signUp(UserSignUpRequest userSignUpRequest) {
+  public UserSignUpResponse signUp(UserSignUpRequest userSignUpRequest) {
     UserEntity userEntity = save(userSignUpRequest.getUserSaveRequest());
 
     CompanyEntity companyEntity = null;
@@ -42,7 +42,7 @@ public class UserSignUpService {
     workSaveService.save(
         WorkSaveRequest.builder().companyEntity(companyEntity).userEntity(userEntity).build());
 
-    return ResponseEntity.ok(UserSignUpResponse.builder().userIndex(userEntity.getId()).build());
+    return UserSignUpResponse.builder().userIndex(userEntity.getId()).build();
   }
 
   @Transactional
@@ -58,8 +58,8 @@ public class UserSignUpService {
             .build());
   }
 
-  public ResponseEntity<String> isDuplicated(String email) {
+  public String isDuplicated(String email) {
     String result = userRepository.existsByEmail(email) ? "Duplicated" : "Available";
-    return ResponseEntity.ok(result);
+    return result;
   }
 }

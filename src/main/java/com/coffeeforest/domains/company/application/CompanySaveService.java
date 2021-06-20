@@ -26,9 +26,9 @@ public class CompanySaveService {
             .build());
   }
 
-  public ResponseEntity<String> isDuplicated(String businessNumber) {
+  public String isDuplicated(String businessNumber) {
     String result =
-        companyRepository.existsByBusinessNumber(businessNumber) ? "Duplicated" : "Avaliable";
-    return ResponseEntity.ok(result);
+        companyRepository.existsByBusinessNumber(businessNumber) ? "Duplicated" : "Available";
+    return result;
   }
 }

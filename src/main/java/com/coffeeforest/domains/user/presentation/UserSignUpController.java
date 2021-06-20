@@ -11,15 +11,16 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserSignUpController {
 
-    private final UserSignUpService userSignUpService;
+  private final UserSignUpService userSignUpService;
 
-    @PostMapping("/users")
-    public ResponseEntity<UserSignUpResponse> signUp(@RequestBody UserSignUpRequest userSignUpRequest) {
-        return userSignUpService.signUp(userSignUpRequest);
-    }
+  @PostMapping("/users")
+  public ResponseEntity<UserSignUpResponse> signUp(
+      @RequestBody UserSignUpRequest userSignUpRequest) {
+    return ResponseEntity.ok(userSignUpService.signUp(userSignUpRequest));
+  }
 
-    @GetMapping("/users/duplication")
-    public ResponseEntity<String> isDuplicated(@RequestParam String email) {
-        return userSignUpService.isDuplicated(email);
-    }
+  @GetMapping("/users/duplication")
+  public ResponseEntity<String> isDuplicated(@RequestParam String email) {
+    return ResponseEntity.ok(userSignUpService.isDuplicated(email));
+  }
 }
