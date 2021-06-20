@@ -8,6 +8,8 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class UserSignInResponse {
+    private Long companyIndex;
+    private Long userIndex;
     private int year;
     private int month;
     private int weekNumber;
