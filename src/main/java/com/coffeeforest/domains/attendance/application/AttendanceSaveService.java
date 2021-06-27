@@ -2,9 +2,9 @@ package com.coffeeforest.domains.attendance.application;
 
 import com.coffeeforest.domains.attendance.application.dto.AttendanceTimeRequest;
 import com.coffeeforest.domains.attendance.application.dto.AttendanceTimeResponse;
-import com.coffeeforest.domains.attendance.domain.AttendanceEntity;
-import com.coffeeforest.domains.attendance.domain.AttendanceRepository;
-import com.coffeeforest.domains.attendance.domain.AttendanceStatus;
+import com.coffeeforest.domains.schedule.domain.ScheduleEntity;
+import com.coffeeforest.domains.schedule.domain.ScheduleRepository;
+import com.coffeeforest.domains.schedule.domain.ScheduleStatus;
 import com.coffeeforest.domains.company.application.CompanyFindService;
 import com.coffeeforest.domains.company.domain.CompanyEntity;
 import com.coffeeforest.domains.user.application.UserFindService;
@@ -19,7 +19,7 @@ import java.time.LocalTime;
 @Service
 @RequiredArgsConstructor
 public class AttendanceSaveService {
-  private final AttendanceRepository attendanceRepository;
+  private final ScheduleRepository scheduleRepository;
   private final AttendanceFindService attendanceFindService;
   private final CompanyFindService companyFindService;
   private final UserFindService userFindService;
@@ -34,33 +34,33 @@ public class AttendanceSaveService {
       throw new IllegalArgumentException("Already Entered");
     }
 
-    AttendanceEntity attendanceEntity = this.save(attendanceTimeRequest);
+    ScheduleEntity scheduleEntity = this.save(attendanceTimeRequest);
 
-    LocalTime responseStartTime = attendanceEntity.getStartTime();
-    LocalTime responseEndTime = attendanceEntity.getCompanyEntity().getEndTime();
+    LocalTime responseStartTime = scheduleEntity.getStartTime();
+    LocalTime responseEndTime = scheduleEntity.getCompanyEntity().getEndTime();
 
     return AttendanceTimeResponse.builder()
-        .date(attendanceEntity.getDate())
+        .date(scheduleEntity.getDate())
         .startTime(responseStartTime)
         .endTime(responseEndTime)
         .build();
   }
 
   @Transactional
-  public AttendanceEntity save(AttendanceTimeRequest attendanceTimeRequest) {
+  public ScheduleEntity save(AttendanceTimeRequest attendanceTimeRequest) {
     CompanyEntity companyEntity =
         companyFindService.findById(attendanceTimeRequest.getCompanyIndex());
     UserEntity userEntity = userFindService.findById(attendanceTimeRequest.getUserIndex());
 
-    AttendanceEntity attendanceEntity =
-        AttendanceEntity.builder()
+    ScheduleEntity scheduleEntity =
+        ScheduleEntity.builder()
             .date(LocalDate.now())
             .startTime(LocalTime.now())
-            .attendanceStatus(AttendanceStatus.ENTER)
+            .scheduleStatus(ScheduleStatus.ENTER)
             .companyEntity(companyEntity)
             .userEntity(userEntity)
             .build();
 
-    return attendanceRepository.save(attendanceEntity);
+    return scheduleRepository.save(scheduleEntity);
   }
 }

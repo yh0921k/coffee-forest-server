@@ -2,7 +2,7 @@ package com.coffeeforest.domains.attendance.application;
 
 import com.coffeeforest.domains.attendance.application.dto.AttendanceTimeRequest;
 import com.coffeeforest.domains.attendance.application.dto.AttendanceTimeResponse;
-import com.coffeeforest.domains.attendance.domain.AttendanceEntity;
+import com.coffeeforest.domains.schedule.domain.ScheduleEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class AttendanceUpdateService {
 
   @Transactional
   public AttendanceTimeResponse leave(AttendanceTimeRequest attendanceTimeRequest) {
-    AttendanceEntity attendanceEntity =
+    ScheduleEntity scheduleEntity =
         attendanceFindService
             .findByDateAndCompanyIndexAndUserIndex(
                 LocalDate.now(),
@@ -25,13 +25,13 @@ public class AttendanceUpdateService {
                 attendanceTimeRequest.getUserIndex())
             .orElseThrow(() -> new IllegalArgumentException("Entered History not Exists"));
 
-    LocalTime baseEndTime = attendanceEntity.getCompanyEntity().getEndTime();
-    attendanceEntity.endTime(LocalTime.now(), baseEndTime);
+    LocalTime baseEndTime = scheduleEntity.getCompanyEntity().getEndTime();
+    scheduleEntity.endTime(LocalTime.now(), baseEndTime);
 
     return AttendanceTimeResponse.builder()
         .date(LocalDate.now())
-        .startTime(attendanceEntity.getStartTime())
-        .endTime(attendanceEntity.getEndTime())
+        .startTime(scheduleEntity.getStartTime())
+        .endTime(scheduleEntity.getEndTime())
         .build();
   }
 }

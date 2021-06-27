@@ -1,4 +1,4 @@
-package com.coffeeforest.domains.attendance.domain;
+package com.coffeeforest.domains.schedule.domain;
 
 import com.coffeeforest.domains.company.domain.CompanyEntity;
 import com.coffeeforest.domains.user.domain.UserEntity;
@@ -14,9 +14,9 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "attendance")
+@Table(name = "schedule")
 @Entity
-public class AttendanceEntity {
+public class ScheduleEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -25,7 +25,7 @@ public class AttendanceEntity {
   private LocalTime startTime;
   private LocalTime endTime;
 
-  private AttendanceStatus attendanceStatus;
+  private ScheduleStatus scheduleStatus;
 
   @ManyToOne
   @JoinColumn(name = "company_id")
@@ -36,22 +36,22 @@ public class AttendanceEntity {
   private UserEntity userEntity;
 
   @Builder
-  public AttendanceEntity(
+  public ScheduleEntity(
       LocalDate date,
       LocalTime startTime,
       LocalTime endTime,
-      AttendanceStatus attendanceStatus,
+      ScheduleStatus scheduleStatus,
       CompanyEntity companyEntity,
       UserEntity userEntity) {
     this.date = date;
     this.startTime = startTime;
     this.endTime = endTime;
-    this.attendanceStatus = attendanceStatus;
+    this.scheduleStatus = scheduleStatus;
     this.companyEntity = companyEntity;
     this.userEntity = userEntity;
   }
 
-  public AttendanceEntity endTime(LocalTime now, LocalTime companyEndTime) {
+  public ScheduleEntity endTime(LocalTime now, LocalTime companyEndTime) {
     if (now.isBefore(companyEndTime)) {
       throw new IllegalArgumentException(
           "Current Time is before Work-Off Time("
@@ -60,7 +60,7 @@ public class AttendanceEntity {
     }
 
     this.endTime = now;
-    this.attendanceStatus = AttendanceStatus.LEAVE;
+    this.scheduleStatus = ScheduleStatus.LEAVE;
     return this;
   }
 }
