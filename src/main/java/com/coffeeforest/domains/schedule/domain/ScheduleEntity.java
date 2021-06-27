@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "attendance")
+@Table(name = "schedule")
 @Entity
 public class ScheduleEntity {
   @Id
@@ -25,7 +25,7 @@ public class ScheduleEntity {
   private LocalTime startTime;
   private LocalTime endTime;
 
-  private WorkStatus workStatus;
+  private ScheduleStatus scheduleStatus;
 
   @ManyToOne
   @JoinColumn(name = "company_id")
@@ -40,13 +40,13 @@ public class ScheduleEntity {
       LocalDate date,
       LocalTime startTime,
       LocalTime endTime,
-      WorkStatus workStatus,
+      ScheduleStatus scheduleStatus,
       CompanyEntity companyEntity,
       UserEntity userEntity) {
     this.date = date;
     this.startTime = startTime;
     this.endTime = endTime;
-    this.workStatus = workStatus;
+    this.scheduleStatus = scheduleStatus;
     this.companyEntity = companyEntity;
     this.userEntity = userEntity;
   }
@@ -60,7 +60,7 @@ public class ScheduleEntity {
     }
 
     this.endTime = now;
-    this.workStatus = WorkStatus.LEAVE;
+    this.scheduleStatus = ScheduleStatus.LEAVE;
     return this;
   }
 }

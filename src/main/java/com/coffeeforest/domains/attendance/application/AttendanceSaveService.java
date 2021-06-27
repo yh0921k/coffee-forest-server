@@ -4,7 +4,7 @@ import com.coffeeforest.domains.attendance.application.dto.AttendanceTimeRequest
 import com.coffeeforest.domains.attendance.application.dto.AttendanceTimeResponse;
 import com.coffeeforest.domains.schedule.domain.ScheduleEntity;
 import com.coffeeforest.domains.schedule.domain.ScheduleRepository;
-import com.coffeeforest.domains.schedule.domain.WorkStatus;
+import com.coffeeforest.domains.schedule.domain.ScheduleStatus;
 import com.coffeeforest.domains.company.application.CompanyFindService;
 import com.coffeeforest.domains.company.domain.CompanyEntity;
 import com.coffeeforest.domains.user.application.UserFindService;
@@ -56,7 +56,7 @@ public class AttendanceSaveService {
         ScheduleEntity.builder()
             .date(LocalDate.now())
             .startTime(LocalTime.now())
-            .workStatus(WorkStatus.ENTER)
+            .scheduleStatus(ScheduleStatus.ENTER)
             .companyEntity(companyEntity)
             .userEntity(userEntity)
             .build();
