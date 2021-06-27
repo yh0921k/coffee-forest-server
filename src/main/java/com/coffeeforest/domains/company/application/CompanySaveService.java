@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalTime;
 
 @Service
 @RequiredArgsConstructor
@@ -17,13 +18,15 @@ public class CompanySaveService {
 
   @Transactional
   public CompanyEntity save(CompanySaveRequest companySaveRequest, UserEntity userEntity) {
-    return companyRepository.save(
+    CompanyEntity companyEntity =
         CompanyEntity.builder()
             .name(companySaveRequest.getName())
             .address(companySaveRequest.getAddress())
             .businessNumber(companySaveRequest.getBusinessNumber())
             .owner(userEntity)
-            .build());
+            .build();
+    companyEntity.baseAttendanceTime(LocalTime.of(9, 0), LocalTime.of(18, 0));
+    return companyRepository.save(companyEntity);
   }
 
   public String isDuplicated(String businessNumber) {
