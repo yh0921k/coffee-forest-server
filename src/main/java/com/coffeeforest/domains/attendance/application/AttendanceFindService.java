@@ -1,7 +1,7 @@
 package com.coffeeforest.domains.attendance.application;
 
-import com.coffeeforest.domains.attendance.domain.AttendanceEntity;
-import com.coffeeforest.domains.attendance.domain.AttendanceRepository;
+import com.coffeeforest.domains.schedule.domain.ScheduleEntity;
+import com.coffeeforest.domains.schedule.domain.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,17 +11,17 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AttendanceFindService {
-  private final AttendanceRepository attendanceRepository;
+  private final ScheduleRepository scheduleRepository;
 
-  public Optional<AttendanceEntity> findByDateAndCompanyIndexAndUserIndex(
+  public Optional<ScheduleEntity> findByDateAndCompanyIndexAndUserIndex(
       LocalDate date, Long companyIndex, Long userIndex) {
-    return attendanceRepository.findByDateAndCompanyEntityIdAndUserEntityId(
+    return scheduleRepository.findByDateAndCompanyEntityIdAndUserEntityId(
         date, companyIndex, userIndex);
   }
 
   public boolean existsByDateAndCompanyIndexAndUserIndex(
       LocalDate date, Long companyIndex, Long userIndex) {
-    return attendanceRepository.existsByDateAndCompanyEntityIdAndUserEntityId(
+    return scheduleRepository.existsByDateAndCompanyEntityIdAndUserEntityId(
         date, companyIndex, userIndex);
   }
 }
