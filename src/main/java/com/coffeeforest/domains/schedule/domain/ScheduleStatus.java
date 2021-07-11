@@ -5,5 +5,6 @@ public enum ScheduleStatus {
   LEAVE,
   OUTSIDE,
   CONFERENCE,
-  HOLIDAY;
+  HOLIDAY,
+  ETC;
 }
