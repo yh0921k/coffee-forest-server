@@ -1,16 +1,11 @@
 package com.coffeeforest.domains.user.application;
 
-import com.coffeeforest.domains.company.application.CompanyFindService;
-import com.coffeeforest.domains.company.application.CompanySaveService;
-import com.coffeeforest.domains.company.domain.CompanyEntity;
+import com.coffeeforest.commons.exception.ExceptionState;
+import com.coffeeforest.commons.exception.detail.InvalidArgumentException;
+import com.coffeeforest.domains.auth.application.PasswordService;
 import com.coffeeforest.domains.user.application.dto.UserSaveRequest;
-import com.coffeeforest.domains.user.application.dto.UserSignUpRequest;
-import com.coffeeforest.domains.user.application.dto.UserSignUpResponse;
-import com.coffeeforest.domains.user.domain.Position;
 import com.coffeeforest.domains.user.domain.UserEntity;
 import com.coffeeforest.domains.user.domain.UserRepository;
-import com.coffeeforest.domains.work.application.WorkSaveService;
-import com.coffeeforest.domains.work.application.dto.WorkSaveRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,36 +16,24 @@ import javax.transaction.Transactional;
 public class UserSignUpService {
 
   private final UserRepository userRepository;
-  private final CompanySaveService companySaveService;
-  private final CompanyFindService companyFindService;
-  private final WorkSaveService workSaveService;
+  private final PasswordService passwordService;
 
   @Transactional
-  public UserSignUpResponse signUp(UserSignUpRequest userSignUpRequest) {
-    UserEntity userEntity = save(userSignUpRequest.getUserSaveRequest());
+  public void signUp(UserSaveRequest userSaveRequest) {
+    String password = userSaveRequest.getPassword();
+    passwordService.validate(password);
 
-    CompanyEntity companyEntity = null;
-    if (userEntity.getPosition() == Position.ADMIN) {
-      companyEntity =
-          companySaveService.save(userSignUpRequest.getCompanySaveRequest(), userEntity);
-    } else if (userEntity.getPosition() == Position.EMPLOYEE) {
-      companyEntity =
-          companyFindService.findByName(userSignUpRequest.getCompanySaveRequest().getName());
+    String email = userSaveRequest.getEmail();
+    if (userRepository.existsByEmail(email)) {
+      throw new InvalidArgumentException(
+          ExceptionState.INVALID_ARGUMENT, "Email Already Registered");
     }
 
-    workSaveService.save(
-        WorkSaveRequest.builder().companyEntity(companyEntity).userEntity(userEntity).build());
-
-    return UserSignUpResponse.builder().userIndex(userEntity.getId()).build();
-  }
-
-  @Transactional
-  public UserEntity save(UserSaveRequest userSaveRequest) {
-    return userRepository.save(
+    String encodedPassword = passwordService.encode(password);
+    userRepository.save(
         UserEntity.builder()
-            .email(userSaveRequest.getEmail())
-            .password(userSaveRequest.getPassword())
-            .position(userSaveRequest.getPosition())
+            .email(email)
+            .password(encodedPassword)
             .name(userSaveRequest.getName())
             .phone(userSaveRequest.getPhone())
             .address(userSaveRequest.getAddress())

@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 public class UserFindService {
   private final UserRepository userRepository;
 
-  public UserEntity findByEmailAndPassword(String email, String password) {
+  public UserEntity findByEmail(String email) {
     UserEntity userEntity =
         userRepository
-            .findByEmailAndPassword(email, password)
+            .findByEmail(email)
             .orElseThrow(() -> new IllegalArgumentException("Invalid Email or Password"));
     return userEntity;
   }

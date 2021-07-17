@@ -18,23 +18,34 @@ public class UserEntity extends BaseTimeEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(unique = true)
+  @Column(unique = true, nullable = false)
   private String email;
 
+  @Column(nullable = false)
   private String password;
-  private Position position;
+
+  @Column(nullable = false)
   private String name;
+
+  @Column(nullable = false)
   private String phone;
+
   private String address;
+  private Position position;
+  private String profileImage;
 
   @Builder
-  public UserEntity(
-      String email, String password, Position position, String name, String phone, String address) {
+  public UserEntity(String email, String password, String name, String phone, String address) {
     this.email = email;
     this.password = password;
-    this.position = position;
     this.name = name;
     this.phone = phone;
     this.address = address;
+  }
+
+  @PrePersist
+  public void prePersist() {
+    this.position = this.position == null ? Position.UNKNOWN : this.position;
+    this.profileImage = this.profileImage == null ? "" : this.profileImage;
   }
 }
