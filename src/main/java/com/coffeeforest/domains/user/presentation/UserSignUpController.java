@@ -19,7 +19,7 @@ public class UserSignUpController {
     return ResponseEntity.ok().build();
   }
 
-  @GetMapping("/users/duplication")
+  @GetMapping("/users")
   public ResponseEntity<String> isDuplicated(@RequestParam String email) {
     return ResponseEntity.ok(userSignUpService.isDuplicated(email));
   }
