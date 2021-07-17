@@ -2,6 +2,15 @@
 spring:
   profiles:
     active: local
+jasypt:
+  encryptor:
+    property:
+      prefix: ENC(
+      suffix: )
+    algorithm: PBEWithMD5AndDES
+custom:
+  jwt:
+    secret: ENC(JvO/H7QvecwZnzmStZ9mSMwA82V3PxSSbwrw6FQdsl6Z9zTN9/DovZ2P3eE5azmhJDPlgZcRYWnIhBeZwBOa1sf7E2xX7ZG8lSSIg1EzEcxFjOR/4zMbtA==)
 
 ---
 
