@@ -1,5 +1,6 @@
 package com.coffeeforest.commons.config;
 
+import com.coffeeforest.commons.interceptor.AuthInterceptor;
 import com.coffeeforest.commons.interceptor.PrintRequestInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class WebMvcConfig implements WebMvcConfigurer {
   private final PrintRequestInterceptor printRequestInterceptor;
+  private final AuthInterceptor authInterceptor;
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
@@ -24,5 +26,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     registry.addInterceptor(printRequestInterceptor).addPathPatterns("/**");
+    registry
+        .addInterceptor(authInterceptor)
+        .addPathPatterns("/**")
+        .excludePathPatterns("/sign-in", "/sign-up", "/refresh");
   }
 }
