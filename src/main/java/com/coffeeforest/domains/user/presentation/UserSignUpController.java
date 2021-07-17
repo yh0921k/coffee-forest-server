@@ -13,7 +13,7 @@ public class UserSignUpController {
 
   private final UserSignUpService userSignUpService;
 
-  @PostMapping("/users")
+  @PostMapping("/sign-up")
   public ResponseEntity<UserSignUpResponse> signUp(@RequestBody UserSaveRequest userSaveRequest) {
     userSignUpService.signUp(userSaveRequest);
     return ResponseEntity.ok().build();
