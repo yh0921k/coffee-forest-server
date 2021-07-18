@@ -29,6 +29,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     registry
         .addInterceptor(authInterceptor)
         .addPathPatterns("/**")
-        .excludePathPatterns("/sign-in", "/sign-up", "/refresh", "/users/email");
+        .excludePathPatterns("/sign-in", "/sign-up", "/refresh", "/users/email/**");
   }
 }
