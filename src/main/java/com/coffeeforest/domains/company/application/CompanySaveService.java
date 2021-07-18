@@ -1,5 +1,9 @@
 package com.coffeeforest.domains.company.application;
 
+import com.coffeeforest.commons.exception.ExceptionState;
+import com.coffeeforest.commons.exception.detail.InvalidArgumentException;
+import com.coffeeforest.commons.regex.RegExType;
+import com.coffeeforest.commons.regex.RegExUtils;
 import com.coffeeforest.domains.company.application.dto.CompanySaveRequest;
 import com.coffeeforest.domains.company.domain.CompanyEntity;
 import com.coffeeforest.domains.company.domain.CompanyRepository;
@@ -15,6 +19,7 @@ import java.time.LocalTime;
 public class CompanySaveService {
 
   private final CompanyRepository companyRepository;
+  private final RegExUtils regExUtils;
 
   @Transactional
   public CompanyEntity save(CompanySaveRequest companySaveRequest, UserEntity userEntity) {
@@ -30,6 +35,11 @@ public class CompanySaveService {
   }
 
   public String isDuplicated(String businessNumber) {
+    if (!regExUtils.validate(RegExType.BUSINESS_NUMBER, businessNumber)) {
+      throw new InvalidArgumentException(
+          ExceptionState.INVALID_ARGUMENT, "Invalid Business Number Format");
+    }
+
     String result =
         companyRepository.existsByBusinessNumber(businessNumber) ? "Duplicated" : "Available";
     return result;
