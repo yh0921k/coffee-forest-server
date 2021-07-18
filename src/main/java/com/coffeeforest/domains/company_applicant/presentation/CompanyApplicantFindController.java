@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class CompanyApplicantFindController {
@@ -19,5 +21,11 @@ public class CompanyApplicantFindController {
       @PathVariable Long companyApplicantIndex) {
     CompanyApplicantFindResponse response = companyApplicantFindService.find(companyApplicantIndex);
     return ResponseEntity.ok(response);
+  }
+
+  @GetMapping("/company-applicant")
+  public ResponseEntity<List<CompanyApplicantFindResponse>> findAll() {
+    List<CompanyApplicantFindResponse> responseList = companyApplicantFindService.findAll();
+    return ResponseEntity.ok(responseList);
   }
 }
