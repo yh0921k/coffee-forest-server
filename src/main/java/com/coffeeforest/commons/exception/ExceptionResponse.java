@@ -24,14 +24,14 @@ public class ExceptionResponse {
     HttpStatus httpStatus = state.getHttpStatus();
 
     return ExceptionResponse.builder()
-            .value(state.getValue())
-            .reason(httpStatus.getReasonPhrase())
-            .code(state.getCode())
-            .message(exception.getMessage())
-            .requestURI("")
-            .queryString("")
-            .requestMethod("")
-            .build();
+        .value(state.getValue())
+        .reason(httpStatus.getReasonPhrase())
+        .code(state.getCode())
+        .message(exception.getMessage())
+        .requestURI("")
+        .queryString("")
+        .requestMethod("")
+        .build();
   }
 
   public static ExceptionResponse of(HttpServletRequest request, CustomException exception) {
@@ -39,13 +39,13 @@ public class ExceptionResponse {
     HttpStatus httpStatus = state.getHttpStatus();
 
     return ExceptionResponse.builder()
-            .value(state.getValue())
-            .reason(httpStatus.getReasonPhrase())
-            .code(state.getCode())
-            .message(exception.getMessage())
-            .requestURI(request.getRequestURI())
-            .queryString(request.getQueryString())
-            .requestMethod(request.getMethod())
-            .build();
+        .value(state.getValue())
+        .reason(httpStatus.getReasonPhrase())
+        .code(state.getCode())
+        .message(exception.getMessage())
+        .requestURI(request.getRequestURI())
+        .queryString(request.getQueryString())
+        .requestMethod(request.getMethod())
+        .build();
   }
 }

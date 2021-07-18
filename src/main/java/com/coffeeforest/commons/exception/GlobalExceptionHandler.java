@@ -4,6 +4,7 @@ import com.coffeeforest.commons.exception.detail.InvalidArgumentException;
 import com.coffeeforest.commons.exception.detail.JwtRuntimeException;
 import com.coffeeforest.commons.exception.detail.UnknownException;
 import com.coffeeforest.commons.exception.detail.UserAuthenticationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -25,7 +26,7 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(JwtRuntimeException.class)
   public ResponseEntity<ExceptionResponse> handleJwtRuntimeException(
-          HttpServletRequest request, JwtRuntimeException exception) {
+      HttpServletRequest request, JwtRuntimeException exception) {
 
     System.out.println("handleJwtRuntimeException() : " + exception.getMessage());
     ExceptionResponse response = ExceptionResponse.of(request, exception);
@@ -35,10 +36,23 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(UserAuthenticationException.class)
   public ResponseEntity<ExceptionResponse> handleUserAuthenticationException(
-          HttpServletRequest request, UserAuthenticationException exception) {
+      HttpServletRequest request, UserAuthenticationException exception) {
 
     System.out.println("handleUserAuthenticationException() : " + exception.getMessage());
     ExceptionResponse response = ExceptionResponse.of(request, exception);
+
+    return ResponseEntity.status(response.getValue()).body(response);
+  }
+
+  @ExceptionHandler(DataIntegrityViolationException.class)
+  public ResponseEntity<ExceptionResponse> handleDataIntegrityViolationException(
+      HttpServletRequest request, DataIntegrityViolationException exception) {
+
+    System.out.println("handleDataIntegrityViolationException() : " + exception.getMessage());
+    ExceptionResponse response =
+        ExceptionResponse.of(
+            request,
+            new InvalidArgumentException(ExceptionState.INVALID_ARGUMENT, "Already Exists"));
 
     return ResponseEntity.status(response.getValue()).body(response);
   }
