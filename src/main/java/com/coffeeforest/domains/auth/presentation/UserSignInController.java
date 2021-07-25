@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 @RequiredArgsConstructor
 public class UserSignInController {
@@ -16,7 +18,7 @@ public class UserSignInController {
 
   @PostMapping("/sign-in")
   public ResponseEntity<UserSignInResponse> signIn(
-      @RequestBody UserSignInRequest userSignInRequest) {
-    return ResponseEntity.ok(userSignInService.signIn(userSignInRequest));
+      @RequestBody UserSignInRequest userSignInRequest, HttpServletResponse httpServletResponse) {
+    return ResponseEntity.ok(userSignInService.signIn(userSignInRequest, httpServletResponse));
   }
 }

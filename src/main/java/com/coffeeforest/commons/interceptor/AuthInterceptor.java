@@ -26,6 +26,10 @@ public class AuthInterceptor implements HandlerInterceptor {
   public boolean preHandle(
       HttpServletRequest servletRequest, HttpServletResponse servletResponse, Object handler) {
 
+    if (servletRequest.getMethod().equals("OPTIONS")) {
+      return true;
+    }
+
     Optional<String> token = parseToken(servletRequest);
     if (token.isEmpty()) {
       throw new UserAuthenticationException(
@@ -38,6 +42,7 @@ public class AuthInterceptor implements HandlerInterceptor {
   }
 
   private Optional<String> parseToken(HttpServletRequest request) {
+    request.getHeaderNames().asIterator().forEachRemaining((name) -> System.out.println(name + ": " + request.getHeader(name)));
     String authToken = request.getHeader(HttpHeaders.AUTHORIZATION);
     if (StringUtils.hasText(authToken)) {
       return Optional.of(authToken);
