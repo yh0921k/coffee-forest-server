@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 @Service
 @RequiredArgsConstructor
 public class UserSignInService {
@@ -18,13 +21,19 @@ public class UserSignInService {
   private final PasswordService passwordService;
 
   @Transactional
-  public UserSignInResponse signIn(UserSignInRequest userSignInRequest) {
+  public UserSignInResponse signIn(UserSignInRequest userSignInRequest, HttpServletResponse httpServletResponse) {
     UserEntity userEntity = userFindService.findByEmail(userSignInRequest.getEmail());
     passwordService.matches(userEntity.getPassword(), userSignInRequest.getPassword());
 
     AuthToken accessToken = userAuthService.createAccessToken(userEntity);
     AuthToken refreshToken = userAuthService.createRefreshToken(userEntity);
     userAuthService.save(userEntity, refreshToken.getValue());
+
+    Cookie cookie = new Cookie("refreshToken", refreshToken.getValue());
+    cookie.setHttpOnly(true);
+    // cookie.setSecure(true);
+    cookie.setMaxAge(60 * 2);
+    httpServletResponse.addCookie(cookie);
 
     return UserSignInResponse.builder()
         .userIndex(userEntity.getId())
