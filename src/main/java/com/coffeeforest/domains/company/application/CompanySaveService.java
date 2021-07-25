@@ -7,6 +7,7 @@ import com.coffeeforest.commons.regex.RegExUtils;
 import com.coffeeforest.domains.company.application.dto.CompanySaveRequest;
 import com.coffeeforest.domains.company.domain.CompanyEntity;
 import com.coffeeforest.domains.company.domain.CompanyRepository;
+import com.coffeeforest.domains.user.application.UserFindService;
 import com.coffeeforest.domains.user.domain.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,9 +21,11 @@ public class CompanySaveService {
 
   private final CompanyRepository companyRepository;
   private final RegExUtils regExUtils;
+  private final UserFindService userFindService;
 
   @Transactional
-  public CompanyEntity save(CompanySaveRequest companySaveRequest, UserEntity userEntity) {
+  public CompanyEntity save(CompanySaveRequest companySaveRequest) {
+    UserEntity userEntity = userFindService.findById(companySaveRequest.getUserIndex());
     CompanyEntity companyEntity =
         CompanyEntity.builder()
             .name(companySaveRequest.getName())

@@ -47,4 +47,9 @@ public class CompanyApplicantEntity extends BaseTimeEntity {
     this.owner = owner;
     this.companyApplicantStatus = CompanyApplicantStatus.WAIT;
   }
+
+  public CompanyApplicantEntity status(CompanyApplicantStatus companyApplicantStatus) {
+    this.companyApplicantStatus = companyApplicantStatus;
+    return this;
+  }
 }
