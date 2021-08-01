@@ -41,4 +41,11 @@ public class WorkApplicantFindService {
 
     return workApplicantInfoList;
   }
+
+  @Transactional
+  public WorkApplicantEntity findByIndex(Long workApplicantIndex) {
+    return workApplicantRepository
+        .findById(workApplicantIndex)
+        .orElseThrow(() -> new IllegalArgumentException("Invalid Work Applicant Index"));
+  }
 }

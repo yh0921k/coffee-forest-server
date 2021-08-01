@@ -16,4 +16,10 @@ public class WorkFindService {
         .findByUserEntityIdAndWorkStatus(userIndex, workStatus)
         .orElseThrow(() -> new IllegalArgumentException("Invalid User Index"));
   }
+
+  public WorkEntity findByUserIndexAndCompanyIndex(Long userIndex, Long companyIndex) {
+    return workRepository
+        .findByUserEntityIdAndCompanyEntityId(userIndex, companyIndex)
+        .orElseThrow(() -> new IllegalArgumentException("Invalid User Index or Company Index"));
+  }
 }
