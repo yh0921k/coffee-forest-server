@@ -79,4 +79,12 @@ public class CompanyApplicantFindService {
 
     return responseList;
   }
+
+  public CompanyApplicantStatus existsByCompanyApplicantStatus(
+      Long ownerIndex, CompanyApplicantStatus companyApplicantStatus) {
+    return companyApplicantRepository.existsByOwnerIdAndCompanyApplicantStatus(
+            ownerIndex, companyApplicantStatus)
+        ? CompanyApplicantStatus.WAIT
+        : CompanyApplicantStatus.UNKNOWN;
+  }
 }

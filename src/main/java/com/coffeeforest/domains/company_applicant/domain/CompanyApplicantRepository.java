@@ -8,4 +8,7 @@ import java.util.Optional;
 public interface CompanyApplicantRepository extends JpaRepository<CompanyApplicantEntity, Long> {
   Optional<List<CompanyApplicantEntity>> findAllByCompanyApplicantStatus(
       CompanyApplicantStatus status);
+
+  boolean existsByOwnerIdAndCompanyApplicantStatus(
+      Long ownerIndex, CompanyApplicantStatus companyApplicantStatus);
 }

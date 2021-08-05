@@ -1,6 +1,7 @@
 package com.coffeeforest.domains.work_applicant.application;
 
 import com.coffeeforest.domains.user.domain.UserEntity;
+import com.coffeeforest.domains.work.domain.WorkStatus;
 import com.coffeeforest.domains.work_applicant.application.dto.WorkApplicantFindRequest;
 import com.coffeeforest.domains.work_applicant.application.dto.WorkApplicantInfo;
 import com.coffeeforest.domains.work_applicant.domain.WorkApplicantEntity;
@@ -40,5 +41,17 @@ public class WorkApplicantFindService {
             .collect(Collectors.toList());
 
     return workApplicantInfoList;
+  }
+
+  @Transactional
+  public WorkApplicantEntity findByIndex(Long workApplicantIndex) {
+    return workApplicantRepository
+        .findById(workApplicantIndex)
+        .orElseThrow(() -> new IllegalArgumentException("Invalid Work Applicant Index"));
+  }
+
+  public WorkStatus existsByWorkStatus(Long userIndex, WorkStatus workStatus) {
+    return workApplicantRepository
+            .existsByUserEntityIdAndWorkStatus(userIndex, workStatus) ? workStatus : WorkStatus.UNKNOWN;
   }
 }

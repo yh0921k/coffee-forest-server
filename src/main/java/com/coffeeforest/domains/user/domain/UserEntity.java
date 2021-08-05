@@ -1,6 +1,9 @@
 package com.coffeeforest.domains.user.domain;
 
+import com.coffeeforest.commons.exception.ExceptionState;
+import com.coffeeforest.commons.exception.detail.UserAuthenticationException;
 import com.coffeeforest.domains.BaseTimeEntity;
+import com.coffeeforest.domains.work.domain.WorkStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -47,5 +50,16 @@ public class UserEntity extends BaseTimeEntity {
   public void prePersist() {
     this.position = this.position == null ? Position.UNKNOWN : this.position;
     this.profileImage = this.profileImage == null ? "" : this.profileImage;
+  }
+
+  public void isValidPosition(Position position) {
+    if (!this.position.equals(position)) {
+      throw new UserAuthenticationException(ExceptionState.AUTHENTICATION_FAILED, "Required admin");
+    }
+  }
+
+  public UserEntity updatePosition(Position position) {
+    this.position = position;
+    return this;
   }
 }

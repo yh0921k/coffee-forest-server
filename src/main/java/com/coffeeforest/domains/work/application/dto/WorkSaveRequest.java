@@ -1,7 +1,5 @@
 package com.coffeeforest.domains.work.application.dto;
 
-import com.coffeeforest.domains.company.domain.CompanyEntity;
-import com.coffeeforest.domains.user.domain.UserEntity;
 import lombok.*;
 
 @Getter
@@ -9,6 +7,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class WorkSaveRequest {
-  private CompanyEntity companyEntity;
-  private UserEntity userEntity;
+  private Long acceptorIndex;
+  private Long companyIndex;
+  private Long workApplicantIndex;
 }
