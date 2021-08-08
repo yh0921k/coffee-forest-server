@@ -21,11 +21,13 @@ public class ScheduleEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  private String title;
   private LocalDate date;
   private LocalTime startTime;
   private LocalTime endTime;
 
-  private ScheduleStatus scheduleStatus;
+  private ScheduleType scheduleType;
+  private boolean accepted;
 
   @ManyToOne
   @JoinColumn(name = "company_id")
@@ -37,16 +39,20 @@ public class ScheduleEntity {
 
   @Builder
   public ScheduleEntity(
+      String title,
       LocalDate date,
       LocalTime startTime,
       LocalTime endTime,
-      ScheduleStatus scheduleStatus,
+      ScheduleType scheduleType,
+      boolean accepted,
       CompanyEntity companyEntity,
       UserEntity userEntity) {
+    this.title = title;
     this.date = date;
     this.startTime = startTime;
     this.endTime = endTime;
-    this.scheduleStatus = scheduleStatus;
+    this.scheduleType = scheduleType;
+    this.accepted = accepted;
     this.companyEntity = companyEntity;
     this.userEntity = userEntity;
   }
@@ -60,7 +66,12 @@ public class ScheduleEntity {
     }
 
     this.endTime = now;
-    this.scheduleStatus = ScheduleStatus.LEAVE;
+    this.scheduleType = ScheduleType.LEAVE;
+    return this;
+  }
+
+  public ScheduleEntity accept() {
+    this.accepted = true;
     return this;
   }
 }
