@@ -12,6 +12,8 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class ScheduleSaveResponse {
     private Long userIndex;
+    private Long scheduleIndex;
+    private String userName;
     private String title;
     private LocalDate date;
     private LocalTime startTime;
