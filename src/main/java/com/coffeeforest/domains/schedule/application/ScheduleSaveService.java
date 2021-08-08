@@ -26,10 +26,12 @@ public class ScheduleSaveService {
 
     ScheduleEntity scheduleEntity =
         ScheduleEntity.builder()
+            .title(scheduleSaveRequest.getTitle())
             .date(scheduleSaveRequest.getDate())
             .startTime(scheduleSaveRequest.getStartTime())
             .endTime(scheduleSaveRequest.getEndTime())
             .scheduleType(scheduleSaveRequest.getScheduleType())
+            .isAccepted(false)
             .userEntity(userEntity)
             .companyEntity(companyEntity)
             .build();
