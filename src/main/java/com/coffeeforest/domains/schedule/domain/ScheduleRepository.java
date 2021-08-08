@@ -15,4 +15,6 @@ public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Long> 
 
   Optional<List<ScheduleEntity>> findAllByCompanyEntityIdAndUserEntityIdAndDateBetween(
       Long companyIndex, Long userIndex, LocalDate startDate, LocalDate endDate);
+
+  List<ScheduleEntity> findAllByCompanyEntityIdAndAccepted(Long companyIndex, boolean accepted);
 }

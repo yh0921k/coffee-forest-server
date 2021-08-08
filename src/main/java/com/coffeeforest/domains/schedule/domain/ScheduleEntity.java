@@ -27,7 +27,7 @@ public class ScheduleEntity {
   private LocalTime endTime;
 
   private ScheduleType scheduleType;
-  private boolean isAccepted;
+  private boolean accepted;
 
   @ManyToOne
   @JoinColumn(name = "company_id")
@@ -44,7 +44,7 @@ public class ScheduleEntity {
       LocalTime startTime,
       LocalTime endTime,
       ScheduleType scheduleType,
-      boolean isAccepted,
+      boolean accepted,
       CompanyEntity companyEntity,
       UserEntity userEntity) {
     this.title = title;
@@ -52,7 +52,7 @@ public class ScheduleEntity {
     this.startTime = startTime;
     this.endTime = endTime;
     this.scheduleType = scheduleType;
-    this.isAccepted = isAccepted;
+    this.accepted = accepted;
     this.companyEntity = companyEntity;
     this.userEntity = userEntity;
   }

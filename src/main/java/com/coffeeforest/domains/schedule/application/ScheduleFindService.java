@@ -2,11 +2,15 @@ package com.coffeeforest.domains.schedule.application;
 
 import com.coffeeforest.domains.schedule.application.dto.ScheduleFindRequest;
 import com.coffeeforest.domains.schedule.application.dto.ScheduleInfo;
+import com.coffeeforest.domains.schedule.application.dto.ScheduleSaveResponse;
 import com.coffeeforest.domains.schedule.application.dto.WeekScheduleResponse;
 import com.coffeeforest.domains.schedule.domain.ScheduleEntity;
 import com.coffeeforest.domains.schedule.domain.ScheduleRepository;
 import com.coffeeforest.domains.user.application.UserFindService;
+import com.coffeeforest.domains.user.domain.Position;
 import com.coffeeforest.domains.user.domain.UserEntity;
+import com.coffeeforest.domains.work.application.WorkFindService;
+import com.coffeeforest.domains.work.domain.WorkEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +25,7 @@ import java.util.stream.Collectors;
 public class ScheduleFindService {
   private final ScheduleRepository scheduleRepository;
   private final UserFindService userFindService;
+  private final WorkFindService workFindService;
 
   public Map<LocalDate, List<ScheduleInfo>> findScheduleMap(
       Long userIndex, Long companyIndex, LocalDate startDate, int workRange) {
@@ -64,5 +69,37 @@ public class ScheduleFindService {
         .profileImage(userEntity.getProfileImage())
         .scheduleInfo(dateScheduleInfoMap)
         .build();
+  }
+
+  public List<ScheduleSaveResponse> findAllByScheduleStatus(
+      ScheduleFindRequest scheduleFindRequest) {
+    WorkEntity workEntity =
+        workFindService.findByUserIndexAndCompanyIndex(
+            scheduleFindRequest.getUserIndex(), scheduleFindRequest.getCompanyIndex());
+    workEntity.getUserEntity().isValidPosition(Position.ADMIN);
+
+    List<ScheduleEntity> scheduleEntityList =
+        scheduleRepository.findAllByCompanyEntityIdAndAccepted(
+            scheduleFindRequest.getCompanyIndex(), false);
+
+    List<ScheduleSaveResponse> scheduleSaveResponseList =
+        scheduleEntityList.stream()
+            .map(
+                scheduleEntity -> {
+                  UserEntity userEntity = scheduleEntity.getUserEntity();
+                  return ScheduleSaveResponse.builder()
+                      .userIndex(userEntity.getId())
+                      .scheduleIndex(scheduleEntity.getId())
+                      .userName(userEntity.getName())
+                      .title(scheduleEntity.getTitle())
+                      .date(scheduleEntity.getDate())
+                      .startTime(scheduleEntity.getStartTime())
+                      .endTime(scheduleEntity.getEndTime())
+                      .scheduleType(scheduleEntity.getScheduleType())
+                      .build();
+                })
+            .collect(Collectors.toList());
+
+    return scheduleSaveResponseList;
   }
 }
