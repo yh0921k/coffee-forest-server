@@ -69,4 +69,9 @@ public class ScheduleEntity {
     this.scheduleType = ScheduleType.LEAVE;
     return this;
   }
+
+  public ScheduleEntity accept() {
+    this.accepted = true;
+    return this;
+  }
 }

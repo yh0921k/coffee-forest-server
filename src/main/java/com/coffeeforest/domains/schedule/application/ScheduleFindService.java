@@ -1,5 +1,7 @@
 package com.coffeeforest.domains.schedule.application;
 
+import com.coffeeforest.commons.exception.ExceptionState;
+import com.coffeeforest.commons.exception.detail.InvalidArgumentException;
 import com.coffeeforest.domains.schedule.application.dto.ScheduleFindRequest;
 import com.coffeeforest.domains.schedule.application.dto.ScheduleInfo;
 import com.coffeeforest.domains.schedule.application.dto.ScheduleSaveResponse;
@@ -26,6 +28,15 @@ public class ScheduleFindService {
   private final ScheduleRepository scheduleRepository;
   private final UserFindService userFindService;
   private final WorkFindService workFindService;
+
+  public ScheduleEntity findByIndex(Long scheduleIndex) {
+    return scheduleRepository
+        .findById(scheduleIndex)
+        .orElseThrow(
+            () ->
+                new InvalidArgumentException(
+                    ExceptionState.INVALID_ARGUMENT, "Invalid Schedule Index"));
+  }
 
   public Map<LocalDate, List<ScheduleInfo>> findScheduleMap(
       Long userIndex, Long companyIndex, LocalDate startDate, int workRange) {
