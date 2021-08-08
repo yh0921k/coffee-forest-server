@@ -31,7 +31,7 @@ public class ScheduleSaveService {
             .startTime(scheduleSaveRequest.getStartTime())
             .endTime(scheduleSaveRequest.getEndTime())
             .scheduleType(scheduleSaveRequest.getScheduleType())
-            .isAccepted(false)
+            .accepted(false)
             .userEntity(userEntity)
             .companyEntity(companyEntity)
             .build();
@@ -39,6 +39,8 @@ public class ScheduleSaveService {
 
     return ScheduleSaveResponse.builder()
         .userIndex(userEntity.getId())
+        .userName(userEntity.getName())
+        .title(scheduleEntity.getTitle())
         .date(scheduleEntity.getDate())
         .startTime(scheduleEntity.getStartTime())
         .endTime(scheduleEntity.getEndTime())

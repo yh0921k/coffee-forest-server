@@ -59,7 +59,7 @@ public class AttendanceSaveService {
             .startTime(LocalTime.now())
             .endTime(companyEntity.getEndTime())
             .scheduleType(ScheduleType.ENTER)
-            .isAccepted(true)
+            .accepted(true)
             .companyEntity(companyEntity)
             .userEntity(userEntity)
             .build();
