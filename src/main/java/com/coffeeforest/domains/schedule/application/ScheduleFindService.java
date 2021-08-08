@@ -43,7 +43,7 @@ public class ScheduleFindService {
                                 .scheduleIndex(scheduleEntity.getId())
                                 .startTime(scheduleEntity.getStartTime())
                                 .endTime(scheduleEntity.getEndTime())
-                                .scheduleStatus(scheduleEntity.getScheduleStatus())
+                                .scheduleType(scheduleEntity.getScheduleType())
                                 .build(),
                         Collectors.toList())));
     return dateScheduleInfoMap;

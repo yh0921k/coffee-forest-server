@@ -29,7 +29,7 @@ public class ScheduleSaveService {
             .date(scheduleSaveRequest.getDate())
             .startTime(scheduleSaveRequest.getStartTime())
             .endTime(scheduleSaveRequest.getEndTime())
-            .scheduleStatus(scheduleSaveRequest.getScheduleStatus())
+            .scheduleType(scheduleSaveRequest.getScheduleType())
             .userEntity(userEntity)
             .companyEntity(companyEntity)
             .build();
@@ -40,7 +40,7 @@ public class ScheduleSaveService {
         .date(scheduleEntity.getDate())
         .startTime(scheduleEntity.getStartTime())
         .endTime(scheduleEntity.getEndTime())
-        .scheduleStatus(scheduleEntity.getScheduleStatus())
+        .scheduleType(scheduleEntity.getScheduleType())
         .build();
   }
 }

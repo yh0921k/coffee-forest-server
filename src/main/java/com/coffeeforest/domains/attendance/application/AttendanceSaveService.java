@@ -6,7 +6,7 @@ import com.coffeeforest.domains.company.application.CompanyFindService;
 import com.coffeeforest.domains.company.domain.CompanyEntity;
 import com.coffeeforest.domains.schedule.domain.ScheduleEntity;
 import com.coffeeforest.domains.schedule.domain.ScheduleRepository;
-import com.coffeeforest.domains.schedule.domain.ScheduleStatus;
+import com.coffeeforest.domains.schedule.domain.ScheduleType;
 import com.coffeeforest.domains.user.application.UserFindService;
 import com.coffeeforest.domains.user.domain.UserEntity;
 import lombok.RequiredArgsConstructor;
@@ -58,7 +58,8 @@ public class AttendanceSaveService {
             .date(LocalDate.now())
             .startTime(LocalTime.now())
             .endTime(companyEntity.getEndTime())
-            .scheduleStatus(ScheduleStatus.ENTER)
+            .scheduleType(ScheduleType.ENTER)
+            .isAccepted(true)
             .companyEntity(companyEntity)
             .userEntity(userEntity)
             .build();

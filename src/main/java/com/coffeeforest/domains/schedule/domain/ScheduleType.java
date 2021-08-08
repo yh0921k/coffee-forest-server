@@ -1,6 +1,6 @@
 package com.coffeeforest.domains.schedule.domain;
 
-public enum ScheduleStatus {
+public enum ScheduleType {
   ENTER,
   LEAVE,
   OUTSIDE,
