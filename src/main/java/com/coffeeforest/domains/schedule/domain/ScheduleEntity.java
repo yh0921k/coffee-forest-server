@@ -21,6 +21,7 @@ public class ScheduleEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  private String title;
   private LocalDate date;
   private LocalTime startTime;
   private LocalTime endTime;
@@ -37,12 +38,14 @@ public class ScheduleEntity {
 
   @Builder
   public ScheduleEntity(
+      String title,
       LocalDate date,
       LocalTime startTime,
       LocalTime endTime,
       ScheduleStatus scheduleStatus,
       CompanyEntity companyEntity,
       UserEntity userEntity) {
+    this.title = title;
     this.date = date;
     this.startTime = startTime;
     this.endTime = endTime;

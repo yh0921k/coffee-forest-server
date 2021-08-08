@@ -54,6 +54,7 @@ public class AttendanceSaveService {
 
     ScheduleEntity scheduleEntity =
         ScheduleEntity.builder()
+            .title("")
             .date(LocalDate.now())
             .startTime(LocalTime.now())
             .endTime(companyEntity.getEndTime())
