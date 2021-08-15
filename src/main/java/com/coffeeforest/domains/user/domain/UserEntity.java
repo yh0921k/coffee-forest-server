@@ -62,4 +62,12 @@ public class UserEntity extends BaseTimeEntity {
     this.position = position;
     return this;
   }
+
+
+  public void update(String name, String password, String phone, String address) {
+    this.name = name;
+    this.password = password;
+    this.phone = phone;
+    this.address = address;
+  }
 }
