@@ -2,6 +2,8 @@ package com.coffeeforest.domains.user.application;
 
 import com.coffeeforest.commons.exception.ExceptionState;
 import com.coffeeforest.commons.exception.detail.InvalidArgumentException;
+import com.coffeeforest.commons.regex.RegExType;
+import com.coffeeforest.commons.regex.RegExUtils;
 import com.coffeeforest.domains.auth.application.PasswordService;
 import com.coffeeforest.domains.user.application.dto.UserSaveRequest;
 import com.coffeeforest.domains.user.domain.UserEntity;
@@ -17,16 +19,21 @@ public class UserSignUpService {
 
   private final UserRepository userRepository;
   private final PasswordService passwordService;
+  private final RegExUtils regExUtils;
 
   @Transactional
   public void signUp(UserSaveRequest userSaveRequest) {
     String password = userSaveRequest.getPassword();
-    passwordService.validate(password);
 
     String email = userSaveRequest.getEmail();
     if (userRepository.existsByEmail(email)) {
       throw new InvalidArgumentException(
           ExceptionState.INVALID_ARGUMENT, "Email Already Registered");
+    }
+
+    if(!regExUtils.validate(RegExType.PHONE_NUMBER, userSaveRequest.getPhone())) {
+      throw new InvalidArgumentException(
+              ExceptionState.INVALID_ARGUMENT, "Invalid Phone Number Format");
     }
 
     String encodedPassword = passwordService.encode(password);
