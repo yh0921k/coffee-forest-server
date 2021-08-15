@@ -11,6 +11,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class ScheduleInfo {
   private Long scheduleIndex;
+  private String title;
   private LocalTime startTime;
   private LocalTime endTime;
   private ScheduleType scheduleType;

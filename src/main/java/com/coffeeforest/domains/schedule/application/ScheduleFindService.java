@@ -57,6 +57,7 @@ public class ScheduleFindService {
                         scheduleEntity ->
                             ScheduleInfo.builder()
                                 .scheduleIndex(scheduleEntity.getId())
+                                .title(scheduleEntity.getTitle())
                                 .startTime(scheduleEntity.getStartTime())
                                 .endTime(scheduleEntity.getEndTime())
                                 .scheduleType(scheduleEntity.getScheduleType())
