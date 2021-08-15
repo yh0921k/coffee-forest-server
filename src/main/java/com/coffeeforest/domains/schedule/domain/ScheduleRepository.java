@@ -17,4 +17,6 @@ public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Long> 
       Long companyIndex, Long userIndex, LocalDate startDate, LocalDate endDate);
 
   List<ScheduleEntity> findAllByCompanyEntityIdAndAccepted(Long companyIndex, boolean accepted);
+
+  List<ScheduleEntity> findAllByCompanyEntityIdAndDate(Long companyIndex, LocalDate localDate);
 }
