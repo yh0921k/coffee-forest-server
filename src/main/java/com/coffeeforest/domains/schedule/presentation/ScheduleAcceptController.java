@@ -1,6 +1,6 @@
 package com.coffeeforest.domains.schedule.presentation;
 
-import com.coffeeforest.domains.admin.application.dto.AdminVerificationInfo;
+import com.coffeeforest.domains.admin.application.dto.CompanyUserIndexPairRequest;
 import com.coffeeforest.domains.schedule.application.ScheduleAcceptService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +15,8 @@ public class ScheduleAcceptController {
   private final ScheduleAcceptService scheduleAcceptService;
 
   @PatchMapping("/schedule-applicant/{scheduleIndex}")
-  public ResponseEntity accept(@PathVariable Long scheduleIndex, @RequestBody AdminVerificationInfo adminVerificationInfo) {
-    scheduleAcceptService.accept(scheduleIndex, adminVerificationInfo);
+  public ResponseEntity accept(@PathVariable Long scheduleIndex, @RequestBody CompanyUserIndexPairRequest companyUserIndexPairRequest) {
+    scheduleAcceptService.accept(scheduleIndex, companyUserIndexPairRequest);
     return ResponseEntity.ok().build();
   }
 }
