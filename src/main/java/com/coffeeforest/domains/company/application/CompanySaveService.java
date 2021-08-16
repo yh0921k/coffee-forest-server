@@ -19,6 +19,7 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 public class CompanySaveService {
 
+  private final CompanyConfigSaveService companyConfigSaveService;
   private final CompanyRepository companyRepository;
   private final RegExUtils regExUtils;
   private final UserFindService userFindService;
@@ -27,7 +28,7 @@ public class CompanySaveService {
   public CompanyEntity save(CompanySaveRequest companySaveRequest) {
     UserEntity userEntity = userFindService.findById(companySaveRequest.getUserIndex());
 
-    CompanyConfigEntity companyConfigEntity = CompanyConfigEntity.builder().build();
+    CompanyConfigEntity companyConfigEntity = companyConfigSaveService.createAndSave();
     CompanyEntity companyEntity =
         CompanyEntity.builder()
             .name(companySaveRequest.getName())
