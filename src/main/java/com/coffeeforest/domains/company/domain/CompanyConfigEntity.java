@@ -54,4 +54,35 @@ public class CompanyConfigEntity {
     this.afternoonDayOffStartTime = LocalTime.of(13, 30);
     this.afternoonDayOffEndTime = LocalTime.of(18, 0);
   }
+
+  public CompanyConfigEntity update(
+      LocalTime workStartTime,
+      LocalTime workEndTime,
+      LocalTime lunchStartTime,
+      LocalTime lunchEndTime,
+      boolean flexibleState,
+      LocalTime flexibleWorkStartTime,
+      LocalTime flexibleWorkEndTime,
+      int fullDayOffUnderYear,
+      int fullDayOffUpperYear,
+      LocalTime morningDayOffStartTime,
+      LocalTime morningDayOffEndTime,
+      LocalTime afternoonDayOffStartTime,
+      LocalTime afternoonDayOffEndTime) {
+    this.workStartTime = workStartTime;
+    this.workEndTime = workEndTime;
+    this.lunchStartTime = lunchStartTime;
+    this.lunchEndTime = lunchEndTime;
+    this.flexibleState = flexibleState;
+    this.flexibleWorkStartTime = flexibleWorkStartTime;
+    this.flexibleWorkEndTime = flexibleWorkEndTime;
+    this.fullDayOffUnderYear = fullDayOffUnderYear;
+    this.fullDayOffUpperYear = fullDayOffUpperYear;
+    this.morningDayOffStartTime = morningDayOffStartTime;
+    this.morningDayOffEndTime = morningDayOffEndTime;
+    this.afternoonDayOffStartTime = afternoonDayOffStartTime;
+    this.afternoonDayOffEndTime = afternoonDayOffEndTime;
+
+    return this;
+  }
 }
