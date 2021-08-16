@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -30,7 +31,10 @@ public class WorkEntity {
 
   private LocalDate startDate;
   private LocalDate endDate;
-  private int holidayCount;
+
+  private LocalTime workStartTime;
+  private LocalTime workEndTime;
+  private int fullDayOffCount;
 
   private WorkStatus workStatus;
 
@@ -40,12 +44,16 @@ public class WorkEntity {
       UserEntity userEntity,
       LocalDate startDate,
       LocalDate endDate,
+      LocalTime workStartTime,
+      LocalTime workEndTime,
       WorkStatus workStatus) {
     this.companyEntity = companyEntity;
     this.userEntity = userEntity;
     this.startDate = startDate;
     this.endDate = endDate;
-    this.holidayCount = 0;
+    this.workStartTime = workStartTime;
+    this.workEndTime = workEndTime;
+    this.fullDayOffCount = 0;
     this.workStatus = workStatus;
   }
 }

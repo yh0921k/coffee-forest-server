@@ -1,6 +1,7 @@
 package com.coffeeforest.domains.work.application;
 
 import com.coffeeforest.domains.company.domain.CompanyEntity;
+import com.coffeeforest.domains.company_config.domain.CompanyConfigEntity;
 import com.coffeeforest.domains.user.domain.Position;
 import com.coffeeforest.domains.work.application.dto.WorkSaveRequest;
 import com.coffeeforest.domains.work.domain.WorkEntity;
@@ -26,12 +27,17 @@ public class WorkSaveService {
 
   @Transactional
   public WorkEntity ofApplicant(WorkApplicantEntity workApplicantEntity) {
+    CompanyConfigEntity companyConfigEntity =
+        workApplicantEntity.getCompanyEntity().getCompanyConfigEntity();
+
     WorkEntity workEntity =
         WorkEntity.builder()
             .companyEntity(workApplicantEntity.getCompanyEntity())
             .userEntity(workApplicantEntity.getUserEntity())
             .startDate(LocalDate.now())
             .endDate(null)
+            .workStartTime(companyConfigEntity.getWorkStartTime())
+            .workEndTime(companyConfigEntity.getWorkEndTime())
             .workStatus(WorkStatus.WORKING)
             .build();
 
