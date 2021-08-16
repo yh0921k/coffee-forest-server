@@ -1,6 +1,7 @@
 package com.coffeeforest.domains.schedule.presentation;
 
 import com.coffeeforest.domains.schedule.application.ScheduleFindService;
+import com.coffeeforest.domains.schedule.application.dto.MonthScheduleInfo;
 import com.coffeeforest.domains.schedule.application.dto.ScheduleFindRequest;
 import com.coffeeforest.domains.schedule.application.dto.ScheduleSaveResponse;
 import com.coffeeforest.domains.schedule.application.dto.WeekScheduleResponse;
@@ -27,8 +28,17 @@ public class ScheduleFindController {
 
   @PostMapping("/schedule-applicant")
   public ResponseEntity<List<ScheduleSaveResponse>> findByScheduleStatus(
-          @RequestBody ScheduleFindRequest scheduleFindRequest) {
-    List<ScheduleSaveResponse> scheduleSaveResponseList = scheduleFindService.findAllByScheduleStatus(scheduleFindRequest);
+      @RequestBody ScheduleFindRequest scheduleFindRequest) {
+    List<ScheduleSaveResponse> scheduleSaveResponseList =
+        scheduleFindService.findAllByScheduleStatus(scheduleFindRequest);
     return ResponseEntity.ok(scheduleSaveResponseList);
+  }
+
+  @PostMapping("/schedule/month")
+  public ResponseEntity<List<MonthScheduleInfo>> findMonthList(
+      @RequestBody ScheduleFindRequest scheduleFindRequest) {
+    List<MonthScheduleInfo> monthScheduleInfoList =
+        scheduleFindService.findMonthList(scheduleFindRequest);
+    return ResponseEntity.ok(monthScheduleInfoList);
   }
 }

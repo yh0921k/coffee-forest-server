@@ -2,19 +2,18 @@ package com.coffeeforest.domains.schedule.application;
 
 import com.coffeeforest.commons.exception.ExceptionState;
 import com.coffeeforest.commons.exception.detail.InvalidArgumentException;
-import com.coffeeforest.domains.schedule.application.dto.ScheduleFindRequest;
-import com.coffeeforest.domains.schedule.application.dto.ScheduleInfo;
-import com.coffeeforest.domains.schedule.application.dto.ScheduleSaveResponse;
-import com.coffeeforest.domains.schedule.application.dto.WeekScheduleResponse;
+import com.coffeeforest.domains.schedule.application.dto.*;
 import com.coffeeforest.domains.schedule.domain.ScheduleEntity;
 import com.coffeeforest.domains.schedule.domain.ScheduleRepository;
 import com.coffeeforest.domains.user.application.UserFindService;
+import com.coffeeforest.domains.user.application.dto.SimpleUserInfo;
 import com.coffeeforest.domains.user.domain.Position;
 import com.coffeeforest.domains.user.domain.UserEntity;
 import com.coffeeforest.domains.work.application.WorkFindService;
 import com.coffeeforest.domains.work.domain.WorkEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -57,6 +56,7 @@ public class ScheduleFindService {
                         scheduleEntity ->
                             ScheduleInfo.builder()
                                 .scheduleIndex(scheduleEntity.getId())
+                                .title(scheduleEntity.getTitle())
                                 .startTime(scheduleEntity.getStartTime())
                                 .endTime(scheduleEntity.getEndTime())
                                 .scheduleType(scheduleEntity.getScheduleType())
@@ -112,5 +112,40 @@ public class ScheduleFindService {
             .collect(Collectors.toList());
 
     return scheduleSaveResponseList;
+  }
+
+  @Transactional
+  public List<MonthScheduleInfo> findMonthList(ScheduleFindRequest scheduleFindRequest) {
+    List<ScheduleEntity> scheduleEntityList =
+        scheduleRepository.findAllByCompanyEntityIdAndDate(
+            scheduleFindRequest.getCompanyIndex(), scheduleFindRequest.getStartDate());
+
+    List<MonthScheduleInfo> monthScheduleInfoList =
+        scheduleEntityList.stream()
+            .map(
+                scheduleEntity -> {
+                  UserEntity userEntity = scheduleEntity.getUserEntity();
+
+                  return MonthScheduleInfo.builder()
+                      .simpleUserInfo(
+                          SimpleUserInfo.builder()
+                              .userIndex(userEntity.getId())
+                              .name(userEntity.getName())
+                              .email("")
+                              .profileImage(userEntity.getProfileImage())
+                              .build())
+                      .scheduleInfo(
+                          ScheduleInfo.builder()
+                              .scheduleIndex(scheduleEntity.getId())
+                              .scheduleType(scheduleEntity.getScheduleType())
+                              .startTime(scheduleEntity.getStartTime())
+                              .endTime(scheduleEntity.getEndTime())
+                              .title(scheduleEntity.getTitle())
+                              .build())
+                      .build();
+                })
+            .collect(Collectors.toList());
+
+    return monthScheduleInfoList;
   }
 }

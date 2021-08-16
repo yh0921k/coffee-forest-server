@@ -5,6 +5,8 @@ import com.coffeeforest.commons.exception.detail.InvalidArgumentException;
 import com.coffeeforest.commons.regex.RegExType;
 import com.coffeeforest.commons.regex.RegExUtils;
 import com.coffeeforest.domains.company.application.dto.CompanySaveRequest;
+import com.coffeeforest.domains.company_config.application.CompanyConfigSaveService;
+import com.coffeeforest.domains.company_config.domain.CompanyConfigEntity;
 import com.coffeeforest.domains.company.domain.CompanyEntity;
 import com.coffeeforest.domains.company.domain.CompanyRepository;
 import com.coffeeforest.domains.user.application.UserFindService;
@@ -13,12 +15,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalTime;
 
 @Service
 @RequiredArgsConstructor
 public class CompanySaveService {
 
+  private final CompanyConfigSaveService companyConfigSaveService;
   private final CompanyRepository companyRepository;
   private final RegExUtils regExUtils;
   private final UserFindService userFindService;
@@ -26,14 +28,16 @@ public class CompanySaveService {
   @Transactional
   public CompanyEntity save(CompanySaveRequest companySaveRequest) {
     UserEntity userEntity = userFindService.findById(companySaveRequest.getUserIndex());
+
+    CompanyConfigEntity companyConfigEntity = companyConfigSaveService.createAndSave();
     CompanyEntity companyEntity =
         CompanyEntity.builder()
             .name(companySaveRequest.getName())
             .address(companySaveRequest.getAddress())
             .businessNumber(companySaveRequest.getBusinessNumber())
             .owner(userEntity)
+            .companyConfigEntity(companyConfigEntity)
             .build();
-    companyEntity.baseAttendanceTime(LocalTime.of(9, 0), LocalTime.of(18, 0));
     return companyRepository.save(companyEntity);
   }
 

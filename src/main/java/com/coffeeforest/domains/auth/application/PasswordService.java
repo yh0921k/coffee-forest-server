@@ -15,7 +15,7 @@ public class PasswordService {
   private final PasswordEncoder passwordEncoder;
   private final RegExUtils regExUtils;
 
-  public void validate(String password) {
+  private void validate(String password) {
     if (!regExUtils.validate(RegExType.PASSWORD, password)) {
       throw new InvalidArgumentException(
           ExceptionState.INVALID_ARGUMENT, "Invalid Password Format");
@@ -23,6 +23,7 @@ public class PasswordService {
   }
 
   public String encode(String password) {
+    this.validate(password);
     return passwordEncoder.encode(password);
   }
 

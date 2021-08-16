@@ -36,13 +36,14 @@ public class AttendanceSaveService {
 
     ScheduleEntity scheduleEntity = this.save(attendanceTimeRequest);
 
-    LocalTime responseStartTime = scheduleEntity.getStartTime();
-    LocalTime responseEndTime = scheduleEntity.getCompanyEntity().getEndTime();
+    LocalTime workStartTime = scheduleEntity.getStartTime();
+    LocalTime workEndTime =
+        scheduleEntity.getCompanyEntity().getCompanyConfigEntity().getWorkEndTime();
 
     return AttendanceTimeResponse.builder()
         .date(scheduleEntity.getDate())
-        .startTime(responseStartTime)
-        .endTime(responseEndTime)
+        .startTime(workStartTime)
+        .endTime(workEndTime)
         .build();
   }
 
@@ -57,7 +58,7 @@ public class AttendanceSaveService {
             .title("")
             .date(LocalDate.now())
             .startTime(LocalTime.now())
-            .endTime(companyEntity.getEndTime())
+            .endTime(companyEntity.getCompanyConfigEntity().getWorkEndTime())
             .scheduleType(ScheduleType.ENTER)
             .accepted(true)
             .companyEntity(companyEntity)

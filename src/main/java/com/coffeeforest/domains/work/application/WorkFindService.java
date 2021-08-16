@@ -6,6 +6,7 @@ import com.coffeeforest.domains.work.domain.WorkStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,5 +22,9 @@ public class WorkFindService {
 
   public Optional<WorkEntity> findByUserIndexAndWorkStatus(Long userIndex, WorkStatus workStatus) {
     return workRepository.findByUserEntityIdAndWorkStatus(userIndex, workStatus);
+  }
+
+  public List<WorkEntity> findAllByCompanyIndex(Long companyIndex) {
+    return workRepository.findAllByCompanyEntityId(companyIndex);
   }
 }
