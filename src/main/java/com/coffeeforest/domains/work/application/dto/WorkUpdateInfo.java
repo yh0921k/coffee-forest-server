@@ -1,4 +1,4 @@
-package com.coffeeforest.domains.user.application.dto;
+package com.coffeeforest.domains.work.application.dto;
 
 import lombok.*;
 
@@ -8,11 +8,12 @@ import java.time.LocalTime;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class SimpleUserInfo {
+public class WorkUpdateInfo {
+  private Long adminIndex;
+  private Long companyIndex;
   private Long userIndex;
-  private String name;
-  private String email;
-  private String profileImage;
+
+  private boolean flexibleState;
   private LocalTime workStartTime;
   private LocalTime workEndTime;
   private int fullDayOffCount;
