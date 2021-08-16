@@ -13,10 +13,14 @@ public class AdminVerificationService {
 
   private final WorkFindService workFindService;
 
-  public void verify(AdminVerificationInfo adminVerificationInfo) {
-    WorkEntity workEntity =
-        workFindService.findByUserIndexAndCompanyIndex(
-            adminVerificationInfo.getUserIndex(), adminVerificationInfo.getCompanyIndex());
+  public WorkEntity verify(AdminVerificationInfo adminVerificationInfo) {
+    return this.verify(adminVerificationInfo.getUserIndex(), adminVerificationInfo.getCompanyIndex());
+  }
+
+  public WorkEntity verify(Long userIndex, Long companyIndex) {
+    WorkEntity workEntity = workFindService.findByUserIndexAndCompanyIndex(userIndex, companyIndex);
     workEntity.getUserEntity().isValidPosition(Position.ADMIN);
+
+    return workEntity;
   }
 }
