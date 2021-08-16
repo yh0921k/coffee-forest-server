@@ -1,7 +1,7 @@
-package com.coffeeforest.domains.company.application;
+package com.coffeeforest.domains.company_config.application;
 
-import com.coffeeforest.domains.company.domain.CompanyConfigEntity;
-import com.coffeeforest.domains.company.domain.CompanyConfigRepository;
+import com.coffeeforest.domains.company_config.domain.CompanyConfigEntity;
+import com.coffeeforest.domains.company_config.domain.CompanyConfigRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

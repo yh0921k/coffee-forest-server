@@ -1,4 +1,4 @@
-package com.coffeeforest.domains.company.domain;
+package com.coffeeforest.domains.company_config.domain;
 
 import lombok.Builder;
 import lombok.Getter;

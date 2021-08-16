@@ -1,4 +1,4 @@
-package com.coffeeforest.domains.company.application.dto;
+package com.coffeeforest.domains.company_config.application.dto;
 
 import lombok.*;
 

@@ -1,7 +1,7 @@
-package com.coffeeforest.domains.company.presentation;
+package com.coffeeforest.domains.company_config.presentation;
 
-import com.coffeeforest.domains.company.application.CompanyConfigUpdateService;
-import com.coffeeforest.domains.company.application.dto.CompanyConfigInfo;
+import com.coffeeforest.domains.company_config.application.CompanyConfigUpdateService;
+import com.coffeeforest.domains.company_config.application.dto.CompanyConfigInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
