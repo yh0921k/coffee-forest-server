@@ -32,6 +32,7 @@ public class WorkEntity {
   private LocalDate startDate;
   private LocalDate endDate;
 
+  private boolean flexibleState;
   private LocalTime workStartTime;
   private LocalTime workEndTime;
   private int fullDayOffCount;
@@ -51,9 +52,19 @@ public class WorkEntity {
     this.userEntity = userEntity;
     this.startDate = startDate;
     this.endDate = endDate;
+    this.flexibleState = false;
     this.workStartTime = workStartTime;
     this.workEndTime = workEndTime;
     this.fullDayOffCount = 0;
     this.workStatus = workStatus;
+  }
+
+  public WorkEntity flexibleInfo(boolean flexibleState, LocalTime workStartTime, LocalTime workEndTime, int fullDayOffCount) {
+    this.flexibleState = flexibleState;
+    this.workStartTime = workStartTime;
+    this.workEndTime = workEndTime;
+    this.fullDayOffCount = fullDayOffCount;
+
+    return this;
   }
 }
