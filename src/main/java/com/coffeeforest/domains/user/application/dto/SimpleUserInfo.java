@@ -9,5 +9,6 @@ import lombok.*;
 public class SimpleUserInfo {
   private Long userIndex;
   private String name;
+  private String email;
   private String profileImage;
 }

@@ -131,6 +131,7 @@ public class ScheduleFindService {
                           SimpleUserInfo.builder()
                               .userIndex(userEntity.getId())
                               .name(userEntity.getName())
+                              .email("")
                               .profileImage(userEntity.getProfileImage())
                               .build())
                       .scheduleInfo(
