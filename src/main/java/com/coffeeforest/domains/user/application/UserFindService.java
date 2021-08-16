@@ -56,6 +56,9 @@ public class UserFindService {
                       .name(userEntity.getName())
                       .email(userEntity.getEmail())
                       .profileImage(userEntity.getProfileImage())
+                      .workStartTime(workEntity.getWorkStartTime())
+                      .workEndTime(workEntity.getWorkEndTime())
+                      .fullDayOffCount(workEntity.getFullDayOffCount())
                       .build();
                 })
             .collect(Collectors.toList());
