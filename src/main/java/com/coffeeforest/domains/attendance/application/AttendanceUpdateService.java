@@ -25,8 +25,9 @@ public class AttendanceUpdateService {
                 attendanceTimeRequest.getUserIndex())
             .orElseThrow(() -> new IllegalArgumentException("Entered History not Exists"));
 
-    LocalTime baseEndTime = scheduleEntity.getCompanyEntity().getEndTime();
-    scheduleEntity.endTime(LocalTime.now(), baseEndTime);
+    LocalTime workEndTime =
+        scheduleEntity.getCompanyEntity().getCompanyConfigEntity().getWorkEndTime();
+    scheduleEntity.endTime(LocalTime.now(), workEndTime);
 
     return AttendanceTimeResponse.builder()
         .date(LocalDate.now())
