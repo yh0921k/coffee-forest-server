@@ -62,6 +62,8 @@ public class UserSignInService {
         .userIndex(userEntity.getId())
         .email(userEntity.getEmail())
         .name(userEntity.getName())
+        .phone(userEntity.getPhone())
+        .address(userEntity.getAddress())
         .position(userEntity.getPosition())
         .profileImage(userEntity.getProfileImage())
         .userTokenInfo(
@@ -71,6 +73,7 @@ public class UserSignInService {
                 .refreshToken(refreshToken.getValue())
                 .build())
         .companyIndex(companyEntity.isPresent() ? companyEntity.get().getId() : 0)
+        .companyName(companyEntity.isPresent() ? companyEntity.get().getName() : "")
         .workApplicantStatus(workStatus)
         .companyApplicantStatus(companyApplicantStatus)
         .build();

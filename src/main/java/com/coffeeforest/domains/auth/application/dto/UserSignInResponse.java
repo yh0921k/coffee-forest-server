@@ -13,11 +13,14 @@ public class UserSignInResponse {
   private Long userIndex;
   private String email;
   private String name;
+  private String phone;
+  private String address;
   private Position position;
   private String profileImage;
   private UserTokenInfo userTokenInfo;
 
   private Long companyIndex;
+  private String companyName;
   private WorkStatus workApplicantStatus;
   private CompanyApplicantStatus companyApplicantStatus;
 }
