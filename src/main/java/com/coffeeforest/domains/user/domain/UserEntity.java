@@ -3,7 +3,6 @@ package com.coffeeforest.domains.user.domain;
 import com.coffeeforest.commons.exception.ExceptionState;
 import com.coffeeforest.commons.exception.detail.UserAuthenticationException;
 import com.coffeeforest.domains.BaseTimeEntity;
-import com.coffeeforest.domains.work.domain.WorkStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -63,11 +62,15 @@ public class UserEntity extends BaseTimeEntity {
     return this;
   }
 
-
   public void update(String name, String password, String phone, String address) {
     this.name = name;
     this.password = password;
     this.phone = phone;
     this.address = address;
+  }
+
+  public UserEntity profileImages(String pathList) {
+    this.profileImage = pathList;
+    return this;
   }
 }
