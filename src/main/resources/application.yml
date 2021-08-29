@@ -11,6 +11,15 @@ jasypt:
 custom:
   jwt:
     secret: ENC(JvO/H7QvecwZnzmStZ9mSMwA82V3PxSSbwrw6FQdsl6Z9zTN9/DovZ2P3eE5azmhJDPlgZcRYWnIhBeZwBOa1sf7E2xX7ZG8lSSIg1EzEcxFjOR/4zMbtA==)
+cloud:
+  aws:
+    credentials:
+      accessKey: ENC(Mi2W3zcqz7wQqUnmWg15KhVoaPDNP6zovoEXgKuOd44=)
+      secretKey: ENC(UaQeyVefHIBwearHFAv7338/LIprdRVceWm3y3lnsXHP62SwvgqXW5a+mEneIeLvs9o3rffGgrA=)
+    s3:
+      bucket: ENC(sR06VXyLKHzKMnIxt2HgAaWXUdOyE7AA)
+    region:
+      static: ENC(eGvdIcEwezF7fAzU22i/kbn8jKqEZFKO)
 
 ---
 
