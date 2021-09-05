@@ -14,16 +14,18 @@ jasypt:
     algorithm: PBEWithMD5AndDES
 custom:
   jwt:
-    secret: ENC(JvO/H7QvecwZnzmStZ9mSMwA82V3PxSSbwrw6FQdsl6Z9zTN9/DovZ2P3eE5azmhJDPlgZcRYWnIhBeZwBOa1sf7E2xX7ZG8lSSIg1EzEcxFjOR/4zMbtA==)
+    secret: ENC(8XTUwqaABXWvQy95s5btt3I84RATF9db8QBlXRWDv/AManI8wvJZo9s4Uj/wRS/+qAHfp3RarJCNB02/v2yWiT8/c6+/G8lRLwtMxY2/+ukAXc+KPhVIeA==)
 cloud:
   aws:
     credentials:
-      accessKey: ENC(Mi2W3zcqz7wQqUnmWg15KhVoaPDNP6zovoEXgKuOd44=)
-      secretKey: ENC(UaQeyVefHIBwearHFAv7338/LIprdRVceWm3y3lnsXHP62SwvgqXW5a+mEneIeLvs9o3rffGgrA=)
+      accessKey: ENC(1Mc71aJBUmefjs+ku/HVcGVKXIA3tK/nCujVlugXfB0=)
+      secretKey: ENC(cSNVjbLMKfqHgV/+2bdzkCTaPoETDyi4Frx7S4HXqEwMdtScIcHRvkvWjRgxPuSl1381FcWvjbU=)
     s3:
-      bucket: ENC(sR06VXyLKHzKMnIxt2HgAaWXUdOyE7AA)
+      bucket: ENC(A7aOZ7NaUedXlRPFDHJUr+u9YC7iFdzF)
     region:
-      static: ENC(eGvdIcEwezF7fAzU22i/kbn8jKqEZFKO)
+      static: ENC(8/e0Kt6GTaAqr/FFWWUZqN/8RIcGBs7E)
+server:
+  port: 8080
 
 ---
 
@@ -51,5 +53,16 @@ spring:
         format_sql: true
     hibernate:
       ddl-auto: create
-server:
-  port: 8080
+
+---
+
+## Deployment Environment ###
+spring:
+  config:
+    activate:
+      on-profile: deploy
+  datasource:
+    url: ENC(WvuKok77iSC1MpLuPOiy4GP0pIBhoofSXSmFiIkqdpbuWB0tWO/Hipcf92PpADHJYDrobjGo51E0ulxxF6tQ1m+J1cM/VxiT8FLttE++LvP4wEbPOb0E7TaHcfm7wbQPZTTbhfX5TJbS1vxeSHQy0kCKKHwhaBAcTfAoix3Du9v+AvnoEUK1pFoQLneyV/ALKRYIWccngpM=)
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: ENC(Ur6nyAvFUR3XBrLKcun5LQ==)
+    password: ENC(06cigUOMu92LmoVZp5hBlVNPOeL5TyAC)

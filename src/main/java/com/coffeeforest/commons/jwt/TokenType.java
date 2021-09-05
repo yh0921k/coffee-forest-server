@@ -6,8 +6,8 @@ import java.util.Arrays;
 
 @Getter
 public enum TokenType {
-  ACCESS_TOKEN("accessToken", 1),
-  REFRESH_TOKEN("refreshToken", 2);
+  ACCESS_TOKEN("accessToken", 60 * 24),
+  REFRESH_TOKEN("refreshToken", 60 * 24 * 7);
 
   private String name;
   private long expiredMinutes;
