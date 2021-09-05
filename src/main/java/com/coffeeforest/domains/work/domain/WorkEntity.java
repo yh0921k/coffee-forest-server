@@ -13,7 +13,7 @@ import java.time.LocalTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "work")
+@Table(name = "works")
 @Entity
 public class WorkEntity {
 
