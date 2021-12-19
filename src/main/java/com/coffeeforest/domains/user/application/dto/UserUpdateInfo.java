@@ -9,7 +9,6 @@ import lombok.*;
 public class UserUpdateInfo {
   private Long userIndex;
   private String name;
-  private String password;
   private String phone;
   private String address;
 }

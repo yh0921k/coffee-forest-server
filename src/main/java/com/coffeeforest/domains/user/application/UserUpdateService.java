@@ -30,14 +30,12 @@ public class UserUpdateService {
 
     userEntity.update(
         userUpdateInfo.getName(),
-        passwordService.encode(userUpdateInfo.getPassword()),
         userUpdateInfo.getPhone(),
         userUpdateInfo.getAddress());
 
     return UserUpdateInfo.builder()
         .userIndex(userEntity.getId())
         .name(userEntity.getName())
-        .password("")
         .phone(userEntity.getPhone())
         .address(userEntity.getAddress())
         .build();
