@@ -2,6 +2,7 @@ package com.coffeeforest.domains.schedule.application;
 
 import com.coffeeforest.commons.exception.ExceptionState;
 import com.coffeeforest.commons.exception.detail.InvalidArgumentException;
+import com.coffeeforest.domains.company.domain.CompanyEntity;
 import com.coffeeforest.domains.schedule.application.dto.*;
 import com.coffeeforest.domains.schedule.domain.ScheduleEntity;
 import com.coffeeforest.domains.schedule.domain.ScheduleRepository;
@@ -11,6 +12,7 @@ import com.coffeeforest.domains.user.domain.Position;
 import com.coffeeforest.domains.user.domain.UserEntity;
 import com.coffeeforest.domains.work.application.WorkFindService;
 import com.coffeeforest.domains.work.domain.WorkEntity;
+import com.coffeeforest.domains.work.domain.WorkStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -74,10 +77,18 @@ public class ScheduleFindService {
             scheduleFindRequest.getStartDate(),
             5);
 
+    Optional<CompanyEntity> companyEntity =
+        workFindService
+            .findByUserIndexAndWorkStatus(userEntity.getId(), WorkStatus.WORKING)
+            .map(entity -> entity.getCompanyEntity());
+
     return WeekScheduleResponse.builder()
         .userIndex(userEntity.getId())
+        .email(userEntity.getEmail())
         .userName(userEntity.getName())
+        .position(userEntity.getPosition())
         .profileImage(userEntity.getProfileImage())
+        .companyName(companyEntity.isPresent() ? companyEntity.get().getName() : "")
         .scheduleInfo(dateScheduleInfoMap)
         .build();
   }
